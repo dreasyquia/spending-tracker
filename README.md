@@ -16,3 +16,9 @@ experience. This is ideal as the project can start off simple and then be increm
 have difficulty resisting the urge to spend my money and in turn, keeping track of all my purchases as a university 
 student. Therefore, in addition to being a challenging project I wanted to take on, the spending tracker will also be a 
 useful application to me after the term is over.
+
+##User Stories
+- As a user, I want to be able to record a purchase in my purchase history.
+- As a user, I want to be able to see all the purchases I have made.
+- As a user, I want to be able to categorize my purchases.
+- As a user, I want to be able to calculate how much money I spent within a given time frame,
