@@ -26,7 +26,7 @@ public class Date {
         return year;
     }
 
-    // EFFECTS: returns a key composed of given month and year
+    // EFFECTS: returns a key composed of month and year of Date
     public String dateToKey() {
         String monthString = Integer.toString(month);
         String yearString = Integer.toString(year);

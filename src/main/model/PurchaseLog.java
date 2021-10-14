@@ -2,15 +2,18 @@ package model;
 
 import java.util.*;
 
+// Represents a purchase log with a list of all recorded purchases, a map of purchases grouped by their month of
+// purchase, and a map of purchases grouped by their category
 public class PurchaseLog {
     private List<Purchase> purchaseHistory;
     private Map<String, List<Purchase>> monthMap;
     private Map<PurchaseCategory, List<Purchase>> categoryMap;
 
+    // EFFECTS: constructs a purchase log with a purchaseHistory, monthMap, and categoryMap
     public PurchaseLog() {
+        purchaseHistory = new ArrayList<>();
         monthMap = new HashMap<>();
         categoryMap = new EnumMap<>(PurchaseCategory.class);
-        purchaseHistory = new ArrayList<>();
     }
 
     public List<Purchase> getPurchaseHistory() {

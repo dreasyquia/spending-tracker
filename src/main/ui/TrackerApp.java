@@ -52,7 +52,7 @@ public class TrackerApp {
     private void displayMenu() {
         System.out.println("\nSelect an option:");
         System.out.println("\tN - Create a new purchase.");
-        System.out.println("\tV - View all purchases made.");
+        System.out.println("\tV - View all recorded purchases.");
         System.out.println("\tM - Calculate how much money you spent in a given month.");
         System.out.println("\tQ - Quit application.");
     }
@@ -69,37 +69,62 @@ public class TrackerApp {
         } else if (command.equals("Q")) {
             System.out.println("\nClosing spending tracker...");
         } else {
-            System.out.println("Invalid input. Please select one of the following options:");
+            System.out.println("Invalid input. Please try again.");
         }
     }
 
+    @SuppressWarnings("CheckStyle")
+    // MODIFIES: this
+    // EFFECTS: creates a purchase and adds it to purchaseHistory and monthMap of purchaseLog; gives option to
+    //          categorize newly created purchase or return to main menu
     private void createPurchase() {
         System.out.println("\nEnter the name of the product or service:");
         String productOrServiceName = userInput.next();
-        System.out.print("\nEnter the price: $");
-        double price = userInput.nextDouble();
-        System.out.println("\nUsing numbers from 1 to 31, enter the day of purchase:");
-        int day = userInput.nextInt();
-        System.out.println("\nUsing numbers from 1 to 12, enter the month of purchase:");
-        int month = userInput.nextInt();
-        System.out.println("\nEnter the year of purchase:");
-        int year = userInput.nextInt();
+        if (productOrServiceName.isEmpty()) {
+            System.out.println("Name cannot be empty. Please try again.");
+        } else {
+            System.out.print("\nEnter the price: $");
+            double price = userInput.nextDouble();
+            if (price < 0) {
+                System.out.println("Price cannot be negative. Please try again.");
+            } else {
+                System.out.println("\nUsing numbers from 1 to 31, enter the day of purchase:");
+                int day = userInput.nextInt();
+                if (day < 1 || day > 31) {
+                    System.out.println("Day must be an integer between 1 and 31. Please try again.");
+                } else {
+                    System.out.println("\nUsing numbers from 1 to 12, enter the month of purchase:");
+                    int month = userInput.nextInt();
+                    if (month < 1 || month > 12) {
+                        System.out.println("Month must be an integer between 1 and 12. Please try again.");
+                    } else {
+                        System.out.println("\nEnter the year of purchase:");
+                        int year = userInput.nextInt();
+                        if (year <= 0) {
+                            System.out.println("Year must be greater than 0. Please try again.");
+                        } else {
+                            Purchase newPurchase = new Purchase(productOrServiceName, price, day, month, year);
+                            purchaseLog.addPurchaseByMonth(newPurchase);
+                            purchaseLog.addPurchaseToHistory(newPurchase);
 
-        Purchase newPurchase = new Purchase(productOrServiceName, price, day, month, year);
-        purchaseLog.addPurchaseByMonth(newPurchase);
-        purchaseLog.addPurchaseToHistory(newPurchase);
+                            System.out.println("\nSelect an option:");
+                            System.out.println("\tC - Categorize purchase.");
+                            System.out.println("\tR - Return to main menu.");
+                            String userCommand = userInput.next();
+                            userCommand = userCommand.toUpperCase();
 
-        System.out.println("\nSelect an option:");
-        System.out.println("\tC - Categorize purchase.");
-        System.out.println("\tR - Return to main menu.");
-        String userCommand = userInput.next();
-        userCommand = userCommand.toUpperCase();
-
-        if (userCommand.equals("C")) {
-            categorizePurchase(newPurchase);
+                            if (userCommand.equals("C")) {
+                                categorizePurchase(newPurchase);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds purchase to categoryMap of purchaseLog
     private void categorizePurchase(Purchase newPurchase) {
         System.out.println("\nEnter one of the following categories:");
         System.out.println("\tHousing, Transportation, Food, Utilities, Insurance,");
@@ -111,13 +136,23 @@ public class TrackerApp {
         firstCharacter = firstCharacter.toUpperCase();
         categoryString = firstCharacter.concat(remainingCharacters);
 
-        PurchaseCategory category = newPurchase.getCategory();
-        category = category.switchCategory(categoryString);
-        newPurchase.setCategory(category);
+        if (!(categoryString.equals("Housing") || categoryString.equals("Transportation")
+                || categoryString.equals("Food") || categoryString.equals("Utilities")
+                || categoryString.equals("Insurance") || categoryString.equals("Healthcare")
+                || categoryString.equals("Personal") || categoryString.equals("Lifestyle")
+                || categoryString.equals("Entertainment") || categoryString.equals("Miscellaneous"))) {
+            System.out.println("Invalid category selection. Please try again.");
+        } else {
+            PurchaseCategory category = newPurchase.getCategory();
+            category = category.switchCategory(categoryString);
+            newPurchase.setCategory(category);
 
-        purchaseLog.addPurchaseByCategory(newPurchase, category);
+            purchaseLog.addPurchaseByCategory(newPurchase, category);
+        }
     }
 
+    // EFFECTS: prints all recorded purchases in purchaseHistory of purchaseLog if not empty; otherwise prints
+    //          statement that no purchases have been recorded
     private void viewAllPurchases() {
         List<Purchase> purchaseHistory = purchaseLog.getPurchaseHistory();
         if (purchaseHistory.isEmpty()) {
@@ -127,14 +162,22 @@ public class TrackerApp {
         }
     }
 
+    // EFFECTS: calculates the total spending in month that user gives
     private void doCalculationOfMoneySpentInMonth() {
         System.out.println("\nUsing numbers from 1 to 12, enter the month you would like to view:");
         int month = userInput.nextInt();
-        System.out.println("\nEnter the year of the month you would like to view:");
-        int year = userInput.nextInt();
-
-        double monthlySpending = purchaseLog.calculateMoneySpentInMonth(month, year);
-        System.out.printf("Monthly Spending: $%.2f\n", monthlySpending);
+        if (month < 1 || month > 12) {
+            System.out.println("Month must be an integer between 1 and 12. Please try again.");
+        } else {
+            System.out.println("\nEnter the year of the month you would like to view:");
+            int year = userInput.nextInt();
+            if (year <= 0) {
+                System.out.println("Year must be greater than 0. Please try again.");
+            } else {
+                double monthlySpending = purchaseLog.calculateMoneySpentInMonth(month, year);
+                System.out.printf("Monthly Spending: $%.2f\n", monthlySpending);
+            }
+        }
     }
 
 }
