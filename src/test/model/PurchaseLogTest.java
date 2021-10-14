@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PurchaseLogTest {
     private PurchaseLog testPurchaseLog;
-    private Map<Integer, List<Purchase>> testMonthMap;
+    private Map<String, List<Purchase>> testMonthMap;
     private Map<PurchaseCategory, List<Purchase>> testCategoryMap;
 
 
@@ -32,24 +32,24 @@ class PurchaseLogTest {
     void testAddPurchaseByMonthNewMonth() {
         Purchase testPurchase = new Purchase("A", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByMonth(testPurchase);
-        List<Purchase> testPurchases = testMonthMap.get(062021);
+        List<Purchase> testPurchaseList = testMonthMap.get("62021");
 
-        assertTrue(testPurchases.contains(testPurchase));
-        assertEquals(1, testPurchases.size());
+        assertTrue(testPurchaseList.contains(testPurchase));
+        assertEquals(1, testPurchaseList.size());
     }
 
     @Test
     void testAddPurchaseByMonthExistingMonth() {
         Purchase testPurchaseA = new Purchase("A", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByMonth(testPurchaseA);
-        List<Purchase> testPurchases = testMonthMap.get(062021);
+        List<Purchase> testPurchaseList = testMonthMap.get("62021");
 
         Purchase testPurchaseB = new Purchase("B", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByMonth(testPurchaseB);
-        Purchase testPurchaseBInLog = testPurchases.get(1);
+        Purchase testPurchaseBInLog = testPurchaseList.get(1);
 
-        assertTrue(testPurchases.contains(testPurchaseB));
-        assertEquals(2, testPurchases.size());
+        assertTrue(testPurchaseList.contains(testPurchaseB));
+        assertEquals(2, testPurchaseList.size());
         assertEquals("B", testPurchaseBInLog.getName());
     }
 
@@ -57,24 +57,24 @@ class PurchaseLogTest {
     void testAddPurchaseByCategoryNewCategory() {
         Purchase testPurchase = new Purchase("A", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByCategory(testPurchase, PurchaseCategory.Miscellaneous);
-        List<Purchase> testPurchases = testCategoryMap.get(PurchaseCategory.Miscellaneous);
+        List<Purchase> testPurchaseList = testCategoryMap.get(PurchaseCategory.Miscellaneous);
 
-        assertTrue(testPurchases.contains(testPurchase));
-        assertEquals(1, testPurchases.size());
+        assertTrue(testPurchaseList.contains(testPurchase));
+        assertEquals(1, testPurchaseList.size());
     }
 
     @Test
     void testAddPurchaseByCategoryExistingCategory() {
         Purchase testPurchaseA = new Purchase("A", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByCategory(testPurchaseA, PurchaseCategory.Miscellaneous);
-        List<Purchase> testPurchases = testCategoryMap.get(PurchaseCategory.Miscellaneous);
+        List<Purchase> testPurchaseList = testCategoryMap.get(PurchaseCategory.Miscellaneous);
 
         Purchase testPurchaseB = new Purchase("B", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByCategory(testPurchaseB, PurchaseCategory.Miscellaneous);
-        Purchase testPurchaseBInLog = testPurchases.get(1);
+        Purchase testPurchaseBInLog = testPurchaseList.get(1);
 
-        assertTrue(testPurchases.contains(testPurchaseB));
-        assertEquals(2, testPurchases.size());
+        assertTrue(testPurchaseList.contains(testPurchaseB));
+        assertEquals(2, testPurchaseList.size());
         assertEquals("B", testPurchaseBInLog.getName());
     }
 
@@ -102,6 +102,10 @@ class PurchaseLogTest {
         Purchase testPurchaseD = new Purchase("D", 5.00, 26,6,2021);
         Purchase testPurchaseE = new Purchase("E", 10.10, 26,6,2021);
         testPurchaseLog.addPurchaseByMonth(testPurchaseA);
+        testPurchaseLog.addPurchaseByMonth(testPurchaseB);
+        testPurchaseLog.addPurchaseByMonth(testPurchaseC);
+        testPurchaseLog.addPurchaseByMonth(testPurchaseD);
+        testPurchaseLog.addPurchaseByMonth(testPurchaseE);
         double totalCost = testPurchaseLog.calculateMoneySpentInMonth(6,2021);
 
         assertEquals(18.10, totalCost);

@@ -26,8 +26,8 @@ public class DateTest {
 
     @Test
     void testDateToKey() {
-        int testKey = testDate.dateToKey();
+        String testKey = testDate.dateToKey();
 
-        assertEquals(062021, testKey);
+        assertEquals("62021", testKey);
     }
 }
