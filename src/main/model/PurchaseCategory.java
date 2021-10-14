@@ -1,32 +1,36 @@
 package model;
 
+import model.exceptions.InvalidCategoryException;
+
 public enum PurchaseCategory {
     Housing, Transportation, Food, Utilities, Insurance, Healthcare,
     Personal, Lifestyle, Entertainment, Miscellaneous, Null;
 
-    // REQUIRES: given string matches one of PurchaseCategory
-    // EFFECTS: converts given string to corresponding PurchaseCategory
-    public PurchaseCategory switchCategory(String category) {
-        if (category.equals("Housing")) {
+    // EFFECTS: converts given categoryString to corresponding PurchaseCategory
+    //          throws InvalidCategoryException if categoryString does not match any PurchaseCategory
+    public PurchaseCategory switchCategory(String categoryString) throws InvalidCategoryException {
+        if (categoryString.equals("Housing")) {
             return Housing;
-        } else if (category.equals("Transportation")) {
+        } else if (categoryString.equals("Transportation")) {
             return Transportation;
-        } else if (category.equals("Food")) {
+        } else if (categoryString.equals("Food")) {
             return Food;
-        } else if (category.equals("Utilities")) {
+        } else if (categoryString.equals("Utilities")) {
             return Utilities;
-        } else if (category.equals("Insurance")) {
+        } else if (categoryString.equals("Insurance")) {
             return Insurance;
-        } else if (category.equals("Healthcare")) {
+        } else if (categoryString.equals("Healthcare")) {
             return Healthcare;
-        } else if (category.equals("Personal")) {
+        } else if (categoryString.equals("Personal")) {
             return Personal;
-        } else if (category.equals("Lifestyle")) {
+        } else if (categoryString.equals("Lifestyle")) {
             return Lifestyle;
-        } else if (category.equals("Entertainment")) {
+        } else if (categoryString.equals("Entertainment")) {
             return Entertainment;
-        } else {
+        } else if (categoryString.equals("Miscellaneous")) {
             return Miscellaneous;
+        } else {
+            throw new InvalidCategoryException();
         }
     }
 }

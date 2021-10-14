@@ -3,6 +3,7 @@ package ui;
 import model.Purchase;
 import model.PurchaseCategory;
 import model.PurchaseLog;
+import model.exceptions.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -85,7 +86,20 @@ public class TrackerApp {
         System.out.println("\nEnter the year of purchase:");
         int year = userInput.nextInt();
 
-        Purchase newPurchase = new Purchase(productOrServiceName, price, day, month, year);
+        Purchase newPurchase = null;
+        try {
+            newPurchase = new Purchase(productOrServiceName, price, day, month, year);
+        } catch (EmptyNameException e) {
+            System.out.println("Name field cannot be empty.");
+        } catch (NegativePriceException e) {
+            System.out.println("Price cannot be negative.");
+        } catch (InvalidDayException e) {
+            System.out.println("Day must be an integer between 1 and 31.");
+        } catch (InvalidMonthException e) {
+            System.out.println("Month must be an integer between 1 and 12.");;
+        } catch (InvalidYearException e) {
+            System.out.println("Year must be greater than 0.");;
+        }
         purchaseLog.addPurchaseByMonth(newPurchase);
         purchaseLog.addPurchaseToHistory(newPurchase);
 
@@ -112,7 +126,11 @@ public class TrackerApp {
         categoryString = firstCharacter.concat(remainingCharacters);
 
         PurchaseCategory category = newPurchase.getCategory();
-        category = category.switchCategory(categoryString);
+        try {
+            category = category.switchCategory(categoryString);
+        } catch (InvalidCategoryException e) {
+            System.out.println("Chosen category must be one of the above.");
+        }
         newPurchase.setCategory(category);
 
         purchaseLog.addPurchaseByCategory(newPurchase, category);
@@ -133,7 +151,14 @@ public class TrackerApp {
         System.out.println("\nEnter the year of the month you would like to view:");
         int year = userInput.nextInt();
 
-        double monthlySpending = purchaseLog.calculateMoneySpentInMonth(month, year);
+        double monthlySpending = 0;
+        try {
+            monthlySpending = purchaseLog.calculateMoneySpentInMonth(month, year);
+        } catch (InvalidMonthException e) {
+            System.out.println("Month must be an integer between 1 and 12.");
+        } catch (InvalidYearException e) {
+            System.out.println("Year must be greater than 0.");
+        }
         System.out.printf("Monthly Spending: $%.2f\n", monthlySpending);
     }
 

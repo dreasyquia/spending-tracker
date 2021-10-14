@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,19 @@ public class PurchaseTest {
 
     @BeforeEach
     void runBefore() {
-        testPurchase = new Purchase("A", 1.00, 26,6,2021);
+        try {
+            testPurchase = new Purchase("A", 1.00, 26,6,2021);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();
+        } catch (NegativePriceException e) {
+            e.printStackTrace();
+        } catch (InvalidDayException e) {
+            e.printStackTrace();
+        } catch (InvalidMonthException e) {
+            e.printStackTrace();
+        } catch (InvalidYearException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
