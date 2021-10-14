@@ -1,5 +1,8 @@
 package model;
 
+import model.exceptions.InvalidMonthException;
+import model.exceptions.InvalidYearException;
+
 import java.util.*;
 
 // Represents a purchase log with a list of all recorded purchases, a map of purchases grouped by their month of
@@ -56,10 +59,17 @@ public class PurchaseLog {
         purchaseList.add(purchase);
     }
 
-    // REQUIRES: month in [1,12]; year > 0
     // EFFECTS: returns the total cost of all purchases made in the given month of the given year if corresponding
-    //          key in monthMap exists; otherwise returns 0
-    public double calculateMoneySpentInMonth(int month, int year) {
+    //          key in monthMap exists; otherwise returns 0;
+    //          throws InvalidMonthException if month is not in the range [1,12]
+    //          throws InvalidYearException if year <= 0
+    public double calculateMoneySpentInMonth(int month, int year) throws InvalidMonthException, InvalidYearException {
+        if (month < 1 || month > 12) {
+            throw new InvalidMonthException();
+        }
+        if (year <= 0) {
+            throw new InvalidYearException();
+        }
         String monthString = Integer.toString(month);
         String yearString = Integer.toString(year);
         String key = monthString.concat(yearString);
