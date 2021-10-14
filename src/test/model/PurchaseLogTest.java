@@ -29,6 +29,38 @@ class PurchaseLogTest {
     }
 
     @Test
+    void testAddPurchaseToHistoryOnePurchase() {
+        Purchase testPurchase = new Purchase("A", 1.00, 26,6,2021);
+        testPurchaseLog.addPurchaseToHistory(testPurchase);
+        List<Purchase> testPurchaseHistory = testPurchaseLog.getPurchaseHistory();
+
+        assertTrue(testPurchaseHistory.contains(testPurchase));
+        assertEquals(1, testPurchaseHistory.size());
+    }
+
+    @Test
+    void testAddPurchaseToHistorySeveralPurchases() {
+        Purchase testPurchaseA = new Purchase("A", 1.00, 26,6,2021);
+        Purchase testPurchaseB = new Purchase("B", 1.75, 26,6,2021);
+        Purchase testPurchaseC = new Purchase("C", 0.25, 26,6,2021);
+        Purchase testPurchaseD = new Purchase("D", 5.00, 26,6,2021);
+        Purchase testPurchaseE = new Purchase("E", 10.10, 26,6,2021);
+
+        testPurchaseLog.addPurchaseToHistory(testPurchaseA);
+        testPurchaseLog.addPurchaseToHistory(testPurchaseB);
+        testPurchaseLog.addPurchaseToHistory(testPurchaseC);
+        testPurchaseLog.addPurchaseToHistory(testPurchaseD);
+        testPurchaseLog.addPurchaseToHistory(testPurchaseE);
+
+        List<Purchase> testPurchaseHistory = testPurchaseLog.getPurchaseHistory();
+        Purchase fifthTestPurchase = testPurchaseHistory.get(4);
+
+        assertTrue(testPurchaseHistory.contains(testPurchaseE));
+        assertEquals(5, testPurchaseHistory.size());
+        assertEquals("E", fifthTestPurchase.getName());
+    }
+
+    @Test
     void testAddPurchaseByMonthNewMonth() {
         Purchase testPurchase = new Purchase("A", 1.00, 26,6,2021);
         testPurchaseLog.addPurchaseByMonth(testPurchase);
@@ -101,11 +133,13 @@ class PurchaseLogTest {
         Purchase testPurchaseC = new Purchase("C", 0.25, 26,6,2021);
         Purchase testPurchaseD = new Purchase("D", 5.00, 26,6,2021);
         Purchase testPurchaseE = new Purchase("E", 10.10, 26,6,2021);
+
         testPurchaseLog.addPurchaseByMonth(testPurchaseA);
         testPurchaseLog.addPurchaseByMonth(testPurchaseB);
         testPurchaseLog.addPurchaseByMonth(testPurchaseC);
         testPurchaseLog.addPurchaseByMonth(testPurchaseD);
         testPurchaseLog.addPurchaseByMonth(testPurchaseE);
+
         double totalCost = testPurchaseLog.calculateMoneySpentInMonth(6,2021);
 
         assertEquals(18.10, totalCost);

@@ -35,4 +35,8 @@ public class PurchaseTest {
         assertEquals(PurchaseCategory.Null, category);
     }
 
+    @Test
+    void testSetCategory() {
+        testPurchase.setCategory(PurchaseCategory.Miscellaneous);
+    }
 }

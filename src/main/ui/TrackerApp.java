@@ -1,8 +1,10 @@
 package ui;
 
 import model.Purchase;
+import model.PurchaseCategory;
 import model.PurchaseLog;
 
+import java.util.List;
 import java.util.Scanner;
 
 // Spending tracker application
@@ -19,7 +21,7 @@ public class TrackerApp {
     // EFFECTS: processes user input
     private void runTracker() {
         boolean continueRunning = true;
-        String userCommand = null;
+        String userCommand;
 
         initialize();
 
@@ -50,7 +52,6 @@ public class TrackerApp {
     private void displayMenu() {
         System.out.println("\nSelect an option:");
         System.out.println("\tN - Create a new purchase.");
-        System.out.println("\tC - Categorize a purchase.");
         System.out.println("\tV - View all purchases made.");
         System.out.println("\tM - Calculate how much money you spent in a given month.");
         System.out.println("\tQ - Quit application.");
@@ -61,8 +62,6 @@ public class TrackerApp {
     private void processCommand(String command) {
         if (command.equals("N")) {
             createPurchase();
-        } else if (command.equals("C")) {
-            categorizePurchase();
         } else if (command.equals("V")) {
             viewAllPurchases();
         } else if (command.equals("M")) {
@@ -77,7 +76,7 @@ public class TrackerApp {
     private void createPurchase() {
         System.out.println("\nEnter the name of the product or service:");
         String productOrServiceName = userInput.next();
-        System.out.println("Enter the price: $");
+        System.out.print("\nEnter the price: $");
         double price = userInput.nextDouble();
         System.out.println("\nUsing numbers from 1 to 31, enter the day of purchase:");
         int day = userInput.nextInt();
@@ -87,15 +86,46 @@ public class TrackerApp {
         int year = userInput.nextInt();
 
         Purchase newPurchase = new Purchase(productOrServiceName, price, day, month, year);
-
         purchaseLog.addPurchaseByMonth(newPurchase);
+        purchaseLog.addPurchaseToHistory(newPurchase);
+
+        System.out.println("\nSelect an option:");
+        System.out.println("\tC - Categorize purchase.");
+        System.out.println("\tR - Return to main menu.");
+        String userCommand = userInput.next();
+        userCommand = userCommand.toUpperCase();
+
+        if (userCommand.equals("C")) {
+            categorizePurchase(newPurchase);
+        }
     }
 
-    private void categorizePurchase() {
-        System.out.println("");
+    private void categorizePurchase(Purchase newPurchase) {
+        System.out.println("\nEnter one of the following categories:");
+        System.out.println("\tHousing, Transportation, Food, Utilities, Insurance,");
+        System.out.println("\tHealthcare, Personal, Lifestyle, Entertainment, Miscellaneous");
+
+        String categoryString = userInput.next();
+        String firstCharacter = categoryString.substring(0,1);
+        String remainingCharacters = categoryString.substring(1);
+        firstCharacter = firstCharacter.toUpperCase();
+        categoryString = firstCharacter.concat(remainingCharacters);
+
+        PurchaseCategory category = newPurchase.getCategory();
+        category = category.switchCategory(categoryString);
+        newPurchase.setCategory(category);
+
+        purchaseLog.addPurchaseByCategory(newPurchase, category);
     }
 
-    private void viewAllPurchases() {}
+    private void viewAllPurchases() {
+        List<Purchase> purchaseHistory = purchaseLog.getPurchaseHistory();
+        if (purchaseHistory.isEmpty()) {
+            System.out.println("No purchases have been recorded.");
+        } else {
+            System.out.println(purchaseHistory);
+        }
+    }
 
     private void doCalculationOfMoneySpentInMonth() {
         System.out.println("\nUsing numbers from 1 to 12, enter the month you would like to view:");
@@ -103,7 +133,8 @@ public class TrackerApp {
         System.out.println("\nEnter the year of the month you would like to view:");
         int year = userInput.nextInt();
 
-        purchaseLog.calculateMoneySpentInMonth(month, year);
+        double monthlySpending = purchaseLog.calculateMoneySpentInMonth(month, year);
+        System.out.printf("Monthly Spending: $%.2f\n", monthlySpending);
     }
 
 }

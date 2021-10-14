@@ -3,13 +3,18 @@ package model;
 import java.util.*;
 
 public class PurchaseLog {
+    private List<Purchase> purchaseHistory;
     private Map<String, List<Purchase>> monthMap;
     private Map<PurchaseCategory, List<Purchase>> categoryMap;
-
 
     public PurchaseLog() {
         monthMap = new HashMap<>();
         categoryMap = new EnumMap<>(PurchaseCategory.class);
+        purchaseHistory = new ArrayList<>();
+    }
+
+    public List<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
     }
 
     public Map<String, List<Purchase>> getMonthMap() {
@@ -18,6 +23,12 @@ public class PurchaseLog {
 
     public Map<PurchaseCategory, List<Purchase>> getCategoryMap() {
         return categoryMap;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds purchase to purchaseHistory
+    public void addPurchaseToHistory(Purchase purchase) {
+        purchaseHistory.add(purchase);
     }
 
     // MODIFIES: this
