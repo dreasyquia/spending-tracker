@@ -22,3 +22,5 @@ useful application to me after the term is over.
 - As a user, I want to be able to see all the purchases I have made.
 - As a user, I want to be able to categorize my purchases.
 - As a user, I want to be able to calculate how much money I spent in a given month in a given year.
+- As a user, I want to be able to save my purchase log to file.
+- As a user, I want to be able to load my purchase log from file.
