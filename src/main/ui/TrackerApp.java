@@ -1,5 +1,6 @@
 package ui;
 
+import model.Date;
 import model.Purchase;
 import model.PurchaseCategory;
 import model.PurchaseLog;
@@ -21,7 +22,7 @@ public class TrackerApp {
             put("Utilities", PurchaseCategory.Utilities);
             put("Insurance", PurchaseCategory.Insurance);
             put("Healthcare", PurchaseCategory.Healthcare);
-            put("Personal", PurchaseCategory.Healthcare);
+            put("Personal", PurchaseCategory.Personal);
             put("Lifestyle", PurchaseCategory.Lifestyle);
             put("Entertainment", PurchaseCategory.Entertainment);
             put("Miscellaneous", PurchaseCategory.Miscellaneous);
@@ -33,6 +34,7 @@ public class TrackerApp {
         runTracker();
     }
 
+    // CITATION: based on runTeller() in TellerApp
     // MODIFIES: this
     // EFFECTS: processes user input
     private void runTracker() {
@@ -140,7 +142,7 @@ public class TrackerApp {
 
     // EFFECTS: returns day of purchase given by user
     private int getPurchaseDay() {
-        System.out.println("\nUsing numbers from 1 to 31, enter the day of purchase:");
+        System.out.println("\nUsing integers from 1 to 31, enter the day of purchase:");
         int day = userInput.nextInt();
         while (day < 1 || day > 31) {
             System.out.println("Day must be an integer between 1 and 31. Please try again.");
@@ -151,7 +153,7 @@ public class TrackerApp {
 
     // EFFECTS: returns month of purchase given by user
     private int getPurchaseMonth() {
-        System.out.println("\nUsing numbers from 1 to 12, enter the month of purchase:");
+        System.out.println("\nUsing integers from 1 to 12, enter the month of purchase:");
         int month = userInput.nextInt();
         while (month < 1 || month > 12) {
             System.out.println("Month must be an integer between 1 and 12. Please try again.");
@@ -205,7 +207,11 @@ public class TrackerApp {
         if (purchaseHistory.isEmpty()) {
             System.out.println("No purchases have been recorded.");
         } else {
-            System.out.println(purchaseHistory);
+            for (Purchase p: purchaseHistory) {
+                Date purchaseDate = p.getPurchaseDate();
+                System.out.println("Name: " + p.getName() + " Price: $" + p.getPrice() + " Purchase Date: "
+                        + purchaseDate.getDay() + "/" + purchaseDate.getMonth() + "/" + purchaseDate.getYear());
+            }
         }
     }
 

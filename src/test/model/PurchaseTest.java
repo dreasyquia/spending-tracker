@@ -38,5 +38,6 @@ public class PurchaseTest {
     @Test
     void testSetCategory() {
         testPurchase.setCategory(PurchaseCategory.Miscellaneous);
+        assertEquals(PurchaseCategory.Miscellaneous, testPurchase.getCategory());
     }
 }
