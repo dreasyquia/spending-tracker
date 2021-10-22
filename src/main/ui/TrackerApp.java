@@ -4,7 +4,11 @@ import model.Date;
 import model.Purchase;
 import model.PurchaseCategory;
 import model.PurchaseLog;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +16,7 @@ import java.util.Scanner;
 
 // Spending tracker application
 public class TrackerApp {
-    private PurchaseLog purchaseLog;
-    private Scanner userInput;
+    private static final String JSON_STORE = "./data/purchaseLog.json";
     private final Map<String, PurchaseCategory> stringToPurchaseCategoryMap = new HashMap<String, PurchaseCategory>() {
         {
             put("Housing", PurchaseCategory.Housing);
@@ -28,9 +31,18 @@ public class TrackerApp {
             put("Miscellaneous", PurchaseCategory.Miscellaneous);
         }
     };
+    private PurchaseLog purchaseLog;
+    private Scanner userInput;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    // EFFECTS: runs the spending tracker application
+    // EFFECTS: constructs purchase log and runs the spending tracker application
     public TrackerApp() {
+        purchaseLog = new PurchaseLog();
+        userInput = new Scanner(System.in);
+        userInput.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runTracker();
     }
 
@@ -40,8 +52,6 @@ public class TrackerApp {
     private void runTracker() {
         boolean continueRunning = true;
         String userCommand;
-
-        initialize();
 
         while (continueRunning) {
             displayMenu();
@@ -58,20 +68,14 @@ public class TrackerApp {
         System.out.println("\nSee you at your next purchase!");
     }
 
-    // MODIFIES: this
-    // EFFECTS: initializes purchase log
-    private void initialize() {
-        purchaseLog = new PurchaseLog();
-        userInput = new Scanner(System.in);
-        userInput.useDelimiter("\n");
-    }
-
     // EFFECTS: displays menu of options available to user
     private void displayMenu() {
         System.out.println("\nSelect an option:");
         System.out.println("\tN - Create a new purchase.");
         System.out.println("\tV - View all recorded purchases.");
-        System.out.println("\tM - Calculate how much money you spent in a given month.");
+        System.out.println("\tM - Calculate how much money was spent in a given month.");
+        System.out.println("\tS - Save purchase log to file.");
+        System.out.println("\tL - Load purchase log from file.");
         System.out.println("\tQ - Quit application.");
     }
 
@@ -84,6 +88,10 @@ public class TrackerApp {
             viewAllPurchases();
         } else if (command.equals("M")) {
             doCalculationOfMoneySpentInMonth();
+        } else if (command.equals("S")) {
+            savePurchaseLog();
+        } else if (command.equals("L")) {
+            loadPurchaseLog();
         } else if (command.equals("Q")) {
             System.out.println("\nClosing spending tracker...");
         } else {
@@ -207,17 +215,18 @@ public class TrackerApp {
         if (purchaseHistory.isEmpty()) {
             System.out.println("No purchases have been recorded.");
         } else {
-            for (Purchase p: purchaseHistory) {
+            for (Purchase p : purchaseHistory) {
                 Date purchaseDate = p.getPurchaseDate();
                 System.out.println("Name: " + p.getName() + " Price: $" + p.getPrice() + " Purchase Date: "
-                        + purchaseDate.getDay() + "/" + purchaseDate.getMonth() + "/" + purchaseDate.getYear());
+                        + purchaseDate.getDay() + "/" + purchaseDate.getMonth() + "/" + purchaseDate.getYear()
+                        + " Category: " + p.getCategory());
             }
         }
     }
 
     // EFFECTS: calculates the total spending in month that user gives
     private void doCalculationOfMoneySpentInMonth() {
-        System.out.println("\nUsing numbers from 1 to 12, enter the month you would like to view:");
+        System.out.println("\nUsing integers from 1 to 12, enter the month you would like to view:");
         int month = userInput.nextInt();
         while (month < 1 || month > 12) {
             System.out.println("Month must be an integer between 1 and 12. Please try again.");
@@ -233,4 +242,28 @@ public class TrackerApp {
         System.out.printf("Monthly Spending: $%.2f\n", monthlySpending);
     }
 
+    // CITATION: based on saveWorkRoom() in JsonSerializationDemo
+    // EFFECTS: saves the purchase log to file
+    private void savePurchaseLog() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(purchaseLog);
+            jsonWriter.close();
+            System.out.println("Saved purchase log to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // CITATION: based on saveWorkRoom() in JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads purchase log from file
+    private void loadPurchaseLog() {
+        try {
+            purchaseLog = jsonReader.read();
+            System.out.println("Loaded purchase log from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }

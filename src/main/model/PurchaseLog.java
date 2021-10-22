@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.*;
 
 // Represents a purchase log with a list of all recorded purchases, a map of purchases grouped by their month of
 // purchase, and a map of purchases grouped by their category
-public class PurchaseLog {
+public class PurchaseLog implements Writable {
     private List<Purchase> purchaseHistory;
     private Map<String, List<Purchase>> monthMap;
     private Map<PurchaseCategory, List<Purchase>> categoryMap;
@@ -26,6 +30,14 @@ public class PurchaseLog {
 
     public Map<PurchaseCategory, List<Purchase>> getCategoryMap() {
         return categoryMap;
+    }
+
+    public void setMonthMap(Map<String, List<Purchase>> monthMap) {
+        this.monthMap = monthMap;
+    }
+
+    public void setCategoryMap(Map<PurchaseCategory, List<Purchase>> categoryMap) {
+        this.categoryMap = categoryMap;
     }
 
     // MODIFIES: this
@@ -74,6 +86,62 @@ public class PurchaseLog {
         }
 
         return totalCost;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Purchase History", purchaseHistoryToJson());
+        json.put("Month Map", monthMapToJson());
+        json.put("Category Map", categoryMapToJson());
+        return json;
+    }
+
+    // EFFECTS: returns purchaseHistory as a JSON array
+    private JSONArray purchaseHistoryToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Purchase p: purchaseHistory) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns monthMap as a JSON object
+    public JSONObject monthMapToJson() {
+        JSONObject jsonMonthMap = new JSONObject();
+
+        for (String key: monthMap.keySet()) {
+            List<Purchase> purchaseList = monthMap.get(key);
+            JSONArray jsonArray = new JSONArray();
+
+            for (Purchase p: purchaseList) {
+                jsonArray.put(p.toJson());
+            }
+
+            jsonMonthMap.put(key, jsonArray);
+        }
+
+        return jsonMonthMap;
+    }
+
+    // EFFECTS: returns monthMap as a JSON object
+    private JSONObject categoryMapToJson() {
+        JSONObject jsonCategoryMap = new JSONObject();
+
+        for (PurchaseCategory key: categoryMap.keySet()) {
+            List<Purchase> purchaseList = categoryMap.get(key);
+            JSONArray jsonArray = new JSONArray();
+
+            for (Purchase p: purchaseList) {
+                jsonArray.put(p.toJson());
+            }
+
+            jsonCategoryMap.put(key.toString(), jsonArray);
+        }
+
+        return jsonCategoryMap;
     }
 
 }

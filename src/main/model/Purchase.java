@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a purchase having a product/service name, price, purchase date, and category
-public class Purchase {
+public class Purchase implements Writable {
     private String name;
     private double price;
     private Date purchaseDate;
@@ -35,6 +38,17 @@ public class Purchase {
 
     public void setCategory(PurchaseCategory category) {
         this.category = category;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Name", name);
+        jsonObject.put("Price", price);
+        jsonObject.put("Purchase Date", purchaseDate.toJson());
+        jsonObject.put("Category", category);
+
+        return jsonObject;
     }
 
 }
