@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,5 +40,22 @@ public class PurchaseTest {
     void testSetCategory() {
         testPurchase.setCategory(PurchaseCategory.Miscellaneous);
         assertEquals(PurchaseCategory.Miscellaneous, testPurchase.getCategory());
+    }
+
+    @Test
+    void testToJson() {
+        JSONObject testJsonPurchase = testPurchase.toJson();
+        JSONObject jsonPurchaseDate = testJsonPurchase.getJSONObject("Purchase Date");
+        Date purchaseDate = testPurchase.getPurchaseDate();
+        int day = purchaseDate.getDay();
+        int month = purchaseDate.getMonth();
+        int year = purchaseDate.getYear();
+
+        assertEquals("A", testJsonPurchase.getString("Name"));
+        assertEquals(1.00, testJsonPurchase.getDouble("Price"));
+        assertEquals(26, jsonPurchaseDate.getInt("Day"));
+        assertEquals(6, jsonPurchaseDate.getInt("Month"));
+        assertEquals(2021, jsonPurchaseDate.getInt("Year"));
+        assertEquals(PurchaseCategory.Null, testJsonPurchase.get("Category"));
     }
 }

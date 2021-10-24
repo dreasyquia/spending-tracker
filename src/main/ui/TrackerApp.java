@@ -255,7 +255,7 @@ public class TrackerApp {
         }
     }
 
-    // CITATION: based on saveWorkRoom() in JsonSerializationDemo
+    // CITATION: based on loadWorkRoom() in JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads purchase log from file
     private void loadPurchaseLog() {

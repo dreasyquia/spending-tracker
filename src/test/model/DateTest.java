@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,5 +30,14 @@ public class DateTest {
         String testKey = testDate.dateToKey();
 
         assertEquals("62021", testKey);
+    }
+
+    @Test
+    void testToJson() {
+        JSONObject testJsonDate = testDate.toJson();
+
+        assertEquals(26, testJsonDate.getInt("Day"));
+        assertEquals(6, testJsonDate.getInt("Month"));
+        assertEquals(2021, testJsonDate.getInt("Year"));
     }
 }

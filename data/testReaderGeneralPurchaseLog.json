@@ -1,0 +1,90 @@
+{
+  "Category Map": {
+    "Personal": [{
+      "Category": "Personal",
+      "Purchase Date": {
+        "Month": 10,
+        "Year": 2021,
+        "Day": 15
+      },
+      "Price": 21.45,
+      "Name": "Dress"
+    }],
+    "Food": [{
+      "Category": "Food",
+      "Purchase Date": {
+        "Month": 6,
+        "Year": 2021,
+        "Day": 26
+      },
+      "Price": 4.5,
+      "Name": "Pizza"
+    }]
+  },
+  "Month Map": {
+    "62021": [{
+      "Category": "Food",
+      "Purchase Date": {
+        "Month": 6,
+        "Year": 2021,
+        "Day": 26
+      },
+      "Price": 4.5,
+      "Name": "Pizza"
+    }],
+    "102021": [
+      {
+        "Category": "Personal",
+        "Purchase Date": {
+          "Month": 10,
+          "Year": 2021,
+          "Day": 15
+        },
+        "Price": 21.45,
+        "Name": "Dress"
+      },
+      {
+        "Category": "Null",
+        "Purchase Date": {
+          "Month": 10,
+          "Year": 2021,
+          "Day": 11
+        },
+        "Price": 7,
+        "Name": "Shirt"
+      }
+    ]
+  },
+  "Purchase History": [
+    {
+      "Category": "Personal",
+      "Purchase Date": {
+        "Month": 10,
+        "Year": 2021,
+        "Day": 15
+      },
+      "Price": 21.45,
+      "Name": "Dress"
+    },
+    {
+      "Category": "Null",
+      "Purchase Date": {
+        "Month": 10,
+        "Year": 2021,
+        "Day": 11
+      },
+      "Price": 7,
+      "Name": "Shirt"
+    },
+    {
+      "Category": "Food",
+      "Purchase Date": {
+        "Month": 6,
+        "Year": 2021,
+        "Day": 26
+      },
+      "Price": 4.5,
+      "Name": "Pizza"
+    }
+  ]
+}
