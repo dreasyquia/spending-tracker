@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.*;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -18,6 +19,17 @@ public class Purchase implements Writable {
         this.price = price;
         this.purchaseDate = new Date(day, month, year);
         this.category = PurchaseCategory.Null;
+    }
+
+    // REQUIRES: productOrServiceName has non-zero length; price >= 0.0; date in [1,31]; month in [1,12]; year > 0
+    // EFFECTS: creates a purchase with given product/service name, given price, given date of purchase, and given
+    //          category
+    public Purchase(String productOrServiceName, double price, int day, int month, int year, PurchaseCategory
+                    category) {
+        this.name = productOrServiceName;
+        this.price = price;
+        this.purchaseDate = new Date(day, month, year);
+        this.category = category;
     }
 
     public String getName() {

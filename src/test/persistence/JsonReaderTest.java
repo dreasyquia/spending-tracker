@@ -13,6 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// CITATION: based on JsonReaderTest in JsonSerializationDemo
 class JsonReaderTest extends JsonTest {
 
     @Test

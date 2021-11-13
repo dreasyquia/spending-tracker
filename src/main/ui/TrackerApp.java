@@ -46,6 +46,10 @@ public class TrackerApp {
         runTracker();
     }
 
+    public PurchaseLog getPurchaseLog() {
+        return purchaseLog;
+    }
+
     // CITATION: based on runTeller() in TellerApp
     // MODIFIES: this
     // EFFECTS: processes user input
@@ -205,7 +209,7 @@ public class TrackerApp {
         PurchaseCategory category = stringToPurchaseCategoryMap.get(categoryString);
         newPurchase.setCategory(category);
         purchaseLog.addPurchaseByCategory(newPurchase, category);
-        System.out.println("Successfully added purchase to category.");
+        System.out.println("Successfully added purchase to " + category + ".");
     }
 
     // EFFECTS: prints all recorded purchases in purchaseHistory of purchaseLog if not empty; otherwise prints
@@ -244,7 +248,7 @@ public class TrackerApp {
 
     // CITATION: based on saveWorkRoom() in JsonSerializationDemo
     // EFFECTS: saves the purchase log to file
-    private void savePurchaseLog() {
+    public void savePurchaseLog() {
         try {
             jsonWriter.open();
             jsonWriter.write(purchaseLog);
@@ -258,7 +262,7 @@ public class TrackerApp {
     // CITATION: based on loadWorkRoom() in JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads purchase log from file
-    private void loadPurchaseLog() {
+    public void loadPurchaseLog() {
         try {
             purchaseLog = jsonReader.read();
             System.out.println("Loaded purchase log from " + JSON_STORE);
