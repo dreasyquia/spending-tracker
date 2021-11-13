@@ -19,7 +19,7 @@ public class PurchaseTest {
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorWithNullCategory() {
         String name = testPurchase.getName();
         double price = testPurchase.getPrice();
         Date purchaseDate = testPurchase.getPurchaseDate();
@@ -34,6 +34,27 @@ public class PurchaseTest {
         assertEquals(6, month);
         assertEquals(2021, year);
         assertEquals(PurchaseCategory.Null, category);
+    }
+
+    @Test
+    void testConstructorWithGivenCategory() {
+        Purchase testPurchase = new Purchase("A", 1.00, 26,6,2021,
+                PurchaseCategory.Personal);
+
+        String name = testPurchase.getName();
+        double price = testPurchase.getPrice();
+        Date purchaseDate = testPurchase.getPurchaseDate();
+        int day = purchaseDate.getDay();
+        int month = purchaseDate.getMonth();
+        int year = purchaseDate.getYear();
+        PurchaseCategory category = testPurchase.getCategory();
+
+        assertEquals("A", name);
+        assertEquals(1.00, price);
+        assertEquals(26, day);
+        assertEquals(6, month);
+        assertEquals(2021, year);
+        assertEquals(PurchaseCategory.Personal, category);
     }
 
     @Test
