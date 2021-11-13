@@ -1,6 +1,5 @@
 package model;
 
-import model.exceptions.*;
 import org.json.JSONObject;
 import persistence.Writable;
 
