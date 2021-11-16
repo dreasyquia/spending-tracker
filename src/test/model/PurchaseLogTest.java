@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PurchaseLogTest {
     private PurchaseLog testPurchaseLog;
+    private List<Purchase> testPurchaseHistory;
     private Map<String, List<Purchase>> testMonthMap;
     private Map<PurchaseCategory, List<Purchase>> testCategoryMap;
 
@@ -18,14 +19,33 @@ class PurchaseLogTest {
     @BeforeEach
     void runBefore() {
         testPurchaseLog = new PurchaseLog();
+        testPurchaseHistory = testPurchaseLog.getPurchaseHistory();
         testMonthMap = testPurchaseLog.getMonthMap();
         testCategoryMap = testPurchaseLog.getCategoryMap();
     }
 
     @Test
     void testConstructor() {
+        assertEquals(0, testPurchaseHistory.size());
         assertEquals(0, testMonthMap.size());
         assertEquals(0, testCategoryMap.size());
+    }
+
+    @Test
+    void testClear() {
+        Purchase testPurchaseA = new Purchase("A", 1.00, 26, 6, 2021);
+
+        for (int i = 0; i < 10; i++) {
+            testPurchaseLog.addPurchaseToHistory(testPurchaseA);
+            testPurchaseLog.addPurchaseByMonth(testPurchaseA);
+            testPurchaseLog.addPurchaseByCategory(testPurchaseA, PurchaseCategory.Null);
+        }
+
+        testPurchaseLog.clear();
+
+        assertEquals(0, testPurchaseLog.getPurchaseHistory().size());
+        assertEquals(0, testPurchaseLog.getMonthMap().size());
+        assertEquals(0, testPurchaseLog.getCategoryMap().size());
     }
 
     @Test

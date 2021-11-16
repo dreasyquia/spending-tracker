@@ -17,6 +17,9 @@ public class ViewPurchasesMenu extends JFrame implements ActionListener {
     private static final int HEIGHT = 500;
 
     private PurchaseLog purchaseLog;
+    private JPanel buttonPanel;
+    private JButton clearPurchasesButton;
+    private JButton closeButton;
 
     // EFFECTS: constructs a view purchases menu
     public ViewPurchasesMenu(PurchaseLog purchaseLog) {
@@ -24,7 +27,7 @@ public class ViewPurchasesMenu extends JFrame implements ActionListener {
 
         setUpFrame();
         displayPurchases();
-        addCloseButton();
+        addButtonPanel();
 
         setVisible(true);
     }
@@ -67,17 +70,40 @@ public class ViewPurchasesMenu extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds close button frame
-    private void addCloseButton() {
-        JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(this);
-        add(closeButton, BorderLayout.SOUTH);
+    // EFFECTS: adds panel to bottom of frame with "Clear purchases" and "Close" buttons
+    public void addButtonPanel() {
+        buttonPanel = new JPanel();
+        addClearPurchasesButton();
+        addCloseButton();
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     // MODIFIES: this
-    // EFFECTS: closes frame
+    // EFFECTS: adds clear purchases button to frame
+    private void addClearPurchasesButton() {
+        clearPurchasesButton = new JButton("Clear purchases");
+        clearPurchasesButton.addActionListener(this);
+        buttonPanel.add(clearPurchasesButton);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds close button to frame
+    private void addCloseButton() {
+        closeButton = new JButton("Close");
+        closeButton.addActionListener(this);
+        buttonPanel.add(closeButton);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears purchases and opens new ViewPurchasesMenu, closes frame otherwise
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
+        if (e.getSource() == clearPurchasesButton) {
+            purchaseLog.clear();
+            dispose();
+            new ViewPurchasesMenu(purchaseLog);
+        } else {
+            dispose();
+        }
     }
 }

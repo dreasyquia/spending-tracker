@@ -41,6 +41,14 @@ public class PurchaseLog implements Writable {
     }
 
     // MODIFIES: this
+    // EFFECTS: empties purchase log
+    public void clear() {
+        purchaseHistory = new ArrayList<>();
+        monthMap = new HashMap<>();
+        categoryMap = new EnumMap<>(PurchaseCategory.class);
+    }
+
+    // MODIFIES: this
     // EFFECTS: adds purchase to purchaseHistory
     public void addPurchaseToHistory(Purchase purchase) {
         purchaseHistory.add(purchase);

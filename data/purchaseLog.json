@@ -1,32 +1,5 @@
 {
-    "Category Map": {"Null": [{
-        "Category": "Null",
-        "Purchase Date": {
-            "Month": 11,
-            "Year": 2021,
-            "Day": 12
-        },
-        "Price": 1000,
-        "Name": "Dog"
-    }]},
-    "Month Map": {"112021": [{
-        "Category": "Null",
-        "Purchase Date": {
-            "Month": 11,
-            "Year": 2021,
-            "Day": 12
-        },
-        "Price": 1000,
-        "Name": "Dog"
-    }]},
-    "Purchase History": [{
-        "Category": "Null",
-        "Purchase Date": {
-            "Month": 11,
-            "Year": 2021,
-            "Day": 12
-        },
-        "Price": 1000,
-        "Name": "Dog"
-    }]
+    "Category Map": {},
+    "Month Map": {},
+    "Purchase History": []
 }
