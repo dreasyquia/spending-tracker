@@ -50,7 +50,7 @@ public class TrackerApp {
         return purchaseLog;
     }
 
-    // CITATION: based on runTeller() in TellerApp
+    // CITATION: based on runTeller() in TellerApp (https://github.students.cs.ubc.ca/CPSC210/TellerApp.git)
     // MODIFIES: this
     // EFFECTS: processes user input
     private void runTracker() {

@@ -6,6 +6,8 @@ import model.PurchaseCategory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// CITATION: based on JsonTest in JsonSerializationDemo
+//           (https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
 public class JsonTest {
     protected void checkPurchase(String name, double price, Date date, PurchaseCategory category, Purchase purchase) {
         Date purchaseDate = purchase.getPurchaseDate();

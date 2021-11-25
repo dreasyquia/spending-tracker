@@ -1,11 +1,15 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.PurchaseLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrackerAppGUI extends JFrame {
 
@@ -16,11 +20,19 @@ public class TrackerAppGUI extends JFrame {
     protected PurchaseLog purchaseLog;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private List<Button> buttons;
 
+    // EFFECTS: constructs a tracker app GUI
     public TrackerAppGUI() {
         super("Spending Tracker");
         initializeFields();
         initializeGraphics();
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                printLog(EventLog.getInstance());
+            }
+        });
     }
 
     public PurchaseLog getPurchaseLog() {
@@ -39,12 +51,17 @@ public class TrackerAppGUI extends JFrame {
         this.purchaseLog = purchaseLog;
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the fields of tracker app
     private void initializeFields() {
         purchaseLog = new PurchaseLog();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        buttons = new ArrayList<>();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the graphics of tracker app
     private void initializeGraphics() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -54,6 +71,8 @@ public class TrackerAppGUI extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the main menu of tracker app
     private void initializeMainMenu() {
         ImageIcon icon = new ImageIcon("data/spendingTrackerIcon.png");
         JLabel iconLabel = new JLabel(icon);
@@ -62,16 +81,33 @@ public class TrackerAppGUI extends JFrame {
 
         JPanel mainMenu = new JPanel();
 
-        mainMenu.setLayout(new GridLayout(3,2));
+        mainMenu.setLayout(new GridLayout(3, 2));
         add(mainMenu, BorderLayout.SOUTH);
 
-        new CreatePurchaseButton(this, mainMenu);
-        new ViewPurchasesButton(this, mainMenu);
-        new CalculateButton(this, mainMenu);
-        new SaveLogButton(this, mainMenu);
-        new LoadLogButton(this, mainMenu);
-        new QuitButton(this, mainMenu);
+        Button createPurchaseButton = new CreatePurchaseButton(this, mainMenu);
+        buttons.add(createPurchaseButton);
 
+        Button viewPurchasesButton = new ViewPurchasesButton(this, mainMenu);
+        buttons.add(viewPurchasesButton);
+
+        Button calculateButton = new CalculateButton(this, mainMenu);
+        buttons.add(calculateButton);
+
+        Button saveLogButton = new SaveLogButton(this, mainMenu);
+        buttons.add(saveLogButton);
+
+        Button loadLogButton = new LoadLogButton(this, mainMenu);
+        buttons.add(loadLogButton);
+
+        Button quitButton = new QuitButton(this, mainMenu);
+        buttons.add(quitButton);
+
+    }
+
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.getDescription());
+        }
     }
 
     public static void main(String[] args) {

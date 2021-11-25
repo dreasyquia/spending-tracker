@@ -46,12 +46,14 @@ public class PurchaseLog implements Writable {
         purchaseHistory = new ArrayList<>();
         monthMap = new HashMap<>();
         categoryMap = new EnumMap<>(PurchaseCategory.class);
+        EventLog.getInstance().logEvent(new Event("Purchase log cleared."));
     }
 
     // MODIFIES: this
     // EFFECTS: adds purchase to purchaseHistory
     public void addPurchaseToHistory(Purchase purchase) {
         purchaseHistory.add(purchase);
+        EventLog.getInstance().logEvent(new Event("Purchase added to purchase log."));
     }
 
     // MODIFIES: this

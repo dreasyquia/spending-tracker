@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // CITATION: based on JsonWriterTest in JsonSerializationDemo
+//           (https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
 class JsonWriterTest extends JsonTest {
 
     @Test

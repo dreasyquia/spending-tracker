@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 // CITATION: based on JsonReader in JsonSerializationDemo
+//           (https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
 // Represents a reader that reads purchase log from JSON data stored in file
 public class JsonReader {
     private String source;
