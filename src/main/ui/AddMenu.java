@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 // Represents a menu that allows user to create a new purchase
-public class CreatePurchaseMenu extends JFrame implements ActionListener {
+public class AddMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 500;
     private static final int HEIGHT = 300;
 
@@ -24,7 +24,7 @@ public class CreatePurchaseMenu extends JFrame implements ActionListener {
     private JComboBox categoryBox;
 
     // EFFECTS: constructs a create purchase menu
-    public CreatePurchaseMenu(PurchaseLog purchaseLog) {
+    public AddMenu(PurchaseLog purchaseLog) {
         this.purchaseLog = purchaseLog;
 
         setUpFrame();

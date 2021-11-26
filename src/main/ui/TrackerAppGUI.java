@@ -84,19 +84,19 @@ public class TrackerAppGUI extends JFrame {
         mainMenu.setLayout(new GridLayout(3, 2));
         add(mainMenu, BorderLayout.SOUTH);
 
-        Button createPurchaseButton = new CreatePurchaseButton(this, mainMenu);
-        buttons.add(createPurchaseButton);
+        Button addButton = new AddButton(this, mainMenu);
+        buttons.add(addButton);
 
-        Button viewPurchasesButton = new ViewPurchasesButton(this, mainMenu);
+        Button viewPurchasesButton = new ViewButton(this, mainMenu);
         buttons.add(viewPurchasesButton);
 
         Button calculateButton = new CalculateButton(this, mainMenu);
         buttons.add(calculateButton);
 
-        Button saveLogButton = new SaveLogButton(this, mainMenu);
+        Button saveLogButton = new SaveButton(this, mainMenu);
         buttons.add(saveLogButton);
 
-        Button loadLogButton = new LoadLogButton(this, mainMenu);
+        Button loadLogButton = new LoadButton(this, mainMenu);
         buttons.add(loadLogButton);
 
         Button quitButton = new QuitButton(this, mainMenu);

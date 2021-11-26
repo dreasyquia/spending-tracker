@@ -21,6 +21,6 @@ public class CalculateButton extends Button {
     // EFFECTS: opens a calculate spending menu
     @Override
     public void actionPerformed(ActionEvent e) {
-        new CalculateSpendingMenu(tracker.getPurchaseLog());
+        new CalculateMenu(tracker.getPurchaseLog());
     }
 }

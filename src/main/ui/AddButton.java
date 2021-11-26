@@ -1,15 +1,13 @@
 package ui;
 
-import model.PurchaseCategory;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 // Represents a button to create a new purchase
-public class CreatePurchaseButton extends Button {
+public class AddButton extends Button {
 
     // EFFECTS: constructs a button on given parent with given tracker
-    public CreatePurchaseButton(TrackerAppGUI tracker, JComponent parent) {
+    public AddButton(TrackerAppGUI tracker, JComponent parent) {
         super(tracker, parent);
     }
 
@@ -17,12 +15,12 @@ public class CreatePurchaseButton extends Button {
     // EFFECTS: creates a "Create new purchase" button
     @Override
     protected void createButton() {
-        button = new JButton("Create new purchase");
+        button = new JButton("Add new purchase");
     }
 
     // EFFECTS: opens a create purchase menu
     @Override
     public void actionPerformed(ActionEvent e) {
-        new CreatePurchaseMenu(tracker.getPurchaseLog());
+        new AddMenu(tracker.getPurchaseLog());
     }
 }

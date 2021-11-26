@@ -9,10 +9,10 @@ import java.io.IOException;
 import static ui.TrackerAppGUI.JSON_STORE;
 
 // Represents a button to load log from file
-public class LoadLogButton extends Button {
+public class LoadButton extends Button {
 
     // EFFECTS: constructs a button on given parent with given tracker
-    public LoadLogButton(TrackerAppGUI tracker, JComponent parent) {
+    public LoadButton(TrackerAppGUI tracker, JComponent parent) {
         super(tracker, parent);
     }
 

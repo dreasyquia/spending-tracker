@@ -11,10 +11,10 @@ import java.io.FileNotFoundException;
 import static ui.TrackerAppGUI.JSON_STORE;
 
 // Represents a button to save log to file
-public class SaveLogButton extends Button {
+public class SaveButton extends Button {
 
     // EFFECTS: constructs a button on given parent with given tracker
-    public SaveLogButton(TrackerAppGUI tracker, JComponent parent) {
+    public SaveButton(TrackerAppGUI tracker, JComponent parent) {
         super(tracker, parent);
     }
 

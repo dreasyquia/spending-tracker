@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a menu that allows user to view all purchases
-public class ViewPurchasesMenu extends JFrame implements ActionListener {
+public class ViewMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
 
@@ -22,7 +22,7 @@ public class ViewPurchasesMenu extends JFrame implements ActionListener {
     private JButton closeButton;
 
     // EFFECTS: constructs a view purchases menu
-    public ViewPurchasesMenu(PurchaseLog purchaseLog) {
+    public ViewMenu(PurchaseLog purchaseLog) {
         this.purchaseLog = purchaseLog;
 
         setUpFrame();
@@ -101,7 +101,7 @@ public class ViewPurchasesMenu extends JFrame implements ActionListener {
         if (e.getSource() == clearPurchasesButton) {
             purchaseLog.clear();
             dispose();
-            new ViewPurchasesMenu(purchaseLog);
+            new ViewMenu(purchaseLog);
         } else {
             dispose();
         }

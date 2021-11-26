@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 // Represents a button to view all purchases
-public class ViewPurchasesButton extends Button {
+public class ViewButton extends Button {
 
     // EFFECTS: constructs a button on given parent with given tracker
-    public ViewPurchasesButton(TrackerAppGUI tracker, JComponent parent) {
+    public ViewButton(TrackerAppGUI tracker, JComponent parent) {
         super(tracker, parent);
     }
 
@@ -21,6 +21,6 @@ public class ViewPurchasesButton extends Button {
     // EFFECTS: opens a view purchases menu
     @Override
     public void actionPerformed(ActionEvent e) {
-        new ViewPurchasesMenu(tracker.getPurchaseLog());
+        new ViewMenu(tracker.getPurchaseLog());
     }
 }

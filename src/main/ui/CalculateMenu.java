@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 // Represents a menu that allows user to calculate their total spending in a given month
-public class CalculateSpendingMenu extends JFrame implements ActionListener {
+public class CalculateMenu extends JFrame implements ActionListener {
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 100;
@@ -19,7 +19,7 @@ public class CalculateSpendingMenu extends JFrame implements ActionListener {
     private JSpinner dateSpinner;
 
     // EFFECTS: constructs a calculate spending menu
-    public CalculateSpendingMenu(PurchaseLog purchaseLog) {
+    public CalculateMenu(PurchaseLog purchaseLog) {
         this.purchaseLog = purchaseLog;
         setUpFrame();
         addDateSpinner();
