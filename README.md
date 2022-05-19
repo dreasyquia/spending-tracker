@@ -10,14 +10,14 @@ The spending tracker can:
 This tracker will be most useful to individuals concerned about their spending habits. Thus, users will be *generally*
 those in their twenties or older.
 
-##Why This Project Interests Me
+## Why This Project Interests Me
 While not too overly complicated, a spending tracker has many possible features that can be added to improve the user's
 experience. This is ideal as the project can start off simple and then be incrementally improved upon. As well, I often
 have difficulty resisting the urge to spend my money and in turn, keeping track of all my purchases as a university 
 student. Therefore, in addition to being a challenging project I wanted to take on, the spending tracker will also be a 
 useful application to me after the term is over.
 
-##User Stories
+## User Stories
 - As a user, I want to be able to record a purchase in my purchase log.
 - As a user, I want to be able to see all the purchases I have made.
 - As a user, I want to be able to categorize my purchases.
@@ -26,14 +26,14 @@ useful application to me after the term is over.
 - As a user, I want to be able to load my purchase log from file.
 - As a user, I want to be able to clear all the purchases in my purchase log.
 
-##Phase 4: Task 2
+## Phase 4: Task 2
 Purchase added to purchase log.
 Purchase added to purchase log.
 Purchase log cleared.
 Purchase added to purchase log.
 Purchase log cleared.
 
-##Phase 4: Task 3
+## Phase 4: Task 3
 While there's room for improvement, I am quite proud of my design and believe it is rather decent considering the time
 I had to do it. I managed to reduce a significant amount of coupling by having the six button types extend one abstract
 button class and giving the TrackerAppGUI one field of a list of buttons, instead of it having six different fields of
