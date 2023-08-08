@@ -8,5 +8,7 @@ This was a term project for UBC's CPSC 210 Software Construction course. I was r
 ## How to Install and Run It
 Make sure you have a JDK installed and set up in your computer. To use the GUI version, run `src/main/ui/TrackerAppGUI.java`. To use the terminal version, run `src/main/ui/Main.java`.
 
-## Demo Video
-[![Final video of fixing issues in your code in VS Code](https://img.youtube.com/vi/LPFgg9x8I5k/maxresdefault.jpg)](https://www.youtube.com/watch?v=LPFgg9x8I5k)
+## How to Use It
+To view the demo video on YouTube, click below:
+
+[![Spending Tracker Demo](https://img.youtube.com/vi/LPFgg9x8I5k/0.jpg)](https://www.youtube.com/watch?v=LPFgg9x8I5k)
